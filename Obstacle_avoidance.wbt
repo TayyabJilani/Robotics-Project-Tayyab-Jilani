@@ -1,0 +1,169 @@
+#VRML_SIM R2025a utf8
+
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackground.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/backgrounds/protos/TexturedBackgroundLight.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/samples/contests/robocup/protos/RobocupSoccerField.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/fruits/protos/Apple.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/balls/protos/FifaSoccerBall.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/drinks/protos/Can.proto"
+EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2025a/projects/objects/toys/protos/RubberDuck.proto"
+
+WorldInfo {
+}
+Viewpoint {
+  orientation -0.32676184648508516 0.32109453430082846 0.8888897545386557 1.7056723461480985
+  position 0.011624949166160355 -16.121331117090815 12.40190903311353
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+RobocupSoccerField {
+}
+FifaSoccerBall {
+  translation 7 0 0.065
+  size 1
+}
+Robot {
+  translation 0 0 0.01
+  children [
+    Pose {
+      translation 0 0 0.0415
+      rotation 0 0 1 -1.570796
+      children [
+        Shape {
+          appearance PBRAppearance {
+            baseColor 0 0 0
+            roughness 1
+          }
+          geometry Box {
+            size 0.07 0.07 0.07
+          }
+        }
+      ]
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 5.713191995998082
+        axis 0 1 0
+        anchor 0 0 0.025
+      }
+      device [
+        RotationalMotor {
+          name "left wheel motor"
+          consumptionFactor 70
+        }
+        PositionSensor {
+          name "left wheel sensor"
+        }
+      ]
+      endPoint Solid {
+        translation 0 0.04499999999999899 0.025
+        rotation -0.3784006609883728 0.3784007294248732 0.8447637703726921 4.544485521004008
+        children [
+          DEF WHEEL Pose {
+            rotation 0.577656895078166 0.5771968951617173 -0.5771968951617173 -2.093935
+            children [
+              Shape {
+                appearance PBRAppearance {
+                  baseColor 1 1 0
+                  roughness 1
+                  metalness 0
+                }
+                geometry Sphere {
+                  radius 0.03
+                }
+              }
+            ]
+          }
+        ]
+        name "left wheel"
+        boundingObject USE WHEEL
+        physics DEF PHYSICS_WHEEL Physics {
+          density -1
+          mass 0.05
+        }
+      }
+    }
+    HingeJoint {
+      jointParameters HingeJointParameters {
+        position 8.235967898633831
+        axis 0 1 0
+        anchor 0 0 0.025
+      }
+      device [
+        RotationalMotor {
+          name "right wheel motor"
+          consumptionFactor 70
+        }
+        PositionSensor {
+          name "right wheel sensor"
+        }
+      ]
+      endPoint Solid {
+        translation 0 -0.04499999999999899 0.025
+        rotation 0.6528454636757387 -0.6528454078783497 0.3841688092104314 3.875162085043186
+        children [
+          USE WHEEL
+        ]
+        name "right wheel"
+        boundingObject USE WHEEL
+        physics USE PHYSICS_WHEEL
+      }
+    }
+    Camera {
+      translation 0.04 0 0.0915
+      children [
+        Pose {
+          translation -0.04 0 0
+          rotation -0.5771968951617173 -0.577656895078166 -0.5771968951617173 -2.093935
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColor 1 1 0
+                roughness 1
+                metalness 0
+              }
+              geometry Box {
+                size 0.02 0.03 0.02
+              }
+            }
+          ]
+        }
+      ]
+      fieldOfView 1.05
+      width 250
+      height 125
+      antiAliasing TRUE
+      recognition Recognition {
+        maxRange 0.25
+        frameThickness 2
+      }
+    }
+  ]
+  name "MyBot"
+  boundingObject Pose {
+    translation 0 0 0.0415
+    rotation 0 0 1 -1.570796
+    children [
+      DEF BODY Cylinder {
+        height 0.08
+        radius 0.045
+      }
+    ]
+  }
+  physics Physics {
+    density -1
+    mass 0.5
+  }
+  controller "my_controller"
+}
+Apple {
+  translation 0.82 0 0.05
+}
+Can {
+  translation 1.55 1 0.07
+}
+RubberDuck {
+  translation 4 0.9 0.02
+}
